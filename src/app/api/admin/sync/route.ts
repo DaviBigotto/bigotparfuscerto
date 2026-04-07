@@ -123,8 +123,11 @@ export async function POST(req: Request) {
         success: true, 
         message: `Sincronização concluída! Foram processados ${syncedCount} produtos.` 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Sync Error: ", error);
-    return NextResponse.json({ error: 'Internal Server Error during Sync' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Erro Interno no Servidor', 
+      details: error.message 
+    }, { status: 500 });
   }
 }
